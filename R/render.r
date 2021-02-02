@@ -60,17 +60,18 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
     )
 
   transform_path <- function(x) {
+    browser()
     x <- gsub(pkg$dst_path, "", x)
 
     if (path == "index.html") {
       return(sub("/", "", x))
     }
 
-    if (length(strsplit(path, "/")[[1]] == 1)) {
+    if (length(fs::path_split(path)[[1]] == 1)) {
       return(paste0("..", x))
     }
 
-    return(paste0("..", rep("/..", length(strsplit(path, "/")[[1]])), x))
+    return(paste0("..", rep("/..", length(fs::path_split(path)[[1]])), x))
 
   }
 
