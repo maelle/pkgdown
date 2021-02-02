@@ -60,13 +60,13 @@ jobs:
           Rscript -e 'pkgdown::deploy_to_branch(new_process = FALSE)'
 
       - name: Create another page
-        if: contains(env.isExtPR, 'false')
+        #if: contains(env.isExtPR, 'false')
         run: |
           Rscript -e 'pkgdown::build_home(override=list(destination="docs/dev/cosmo", template = list(params=list( bootswatch = "cosmo"))))'
 
 
       - name: Deploy to Netlify
-        if: contains(env.isExtPR, 'false')
+        #if: contains(env.isExtPR, 'false')
         id: netlify-deploy
         uses: nwtgck/actions-netlify@v1.1
         with:
