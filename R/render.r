@@ -48,21 +48,35 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
     bootswatch = bootswatch_theme
   )
   deps <- bslib::bs_theme_dependencies(bs_theme)
+  # Add other dependencies
+  deps <- c(
+    deps,
+    list(rmarkdown::html_dependency_font_awesome())
+  )
   deps <- lapply(
     deps,
     htmltools::copyDependencyToDir,
     file.path(pkg$dst_path, "deps")
     )
 
-  # Add other dependencies
-  deps <- c(
-    deps,
-    rmarkdown::html_dependency_font_awesome()
-  )
+  transform_path <- function(x) {
+    x <- gsub(pkg$dst_path, "", x)
+
+    if (path == "index.html") {
+      return(sub("/", "", x))
+    }
+
+    if (length(strsplit(path, "/")[[1]] == 1)) {
+      return(paste0("..", x))
+    }
+
+    return(paste0("..", rep("/..", length(strsplit(path, "/")[[1]])), x))
+
+  }
 
   data$headdeps <- htmltools::renderDependencies(
-    deps,
-    hrefFilter = function(x) gsub(pkg$dst_path, "", x)
+    deps, srcType = "file",
+    hrefFilter = transform_path
   )
 
   # render template components
