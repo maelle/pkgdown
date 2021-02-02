@@ -62,7 +62,12 @@ jobs:
       - name: Create another page
         #if: contains(env.isExtPR, 'false')
         run: |
-          Rscript -e 'pkgdown::build_home(override=list(destination="docs/dev/cosmo", template = list(params=list( bootswatch = "cosmo"))))'
+          Rscript -e 'pkgdown::build_home(override=list(destination="cosmo", template = list(params=list( bootswatch = "cosmo"))))'
+
+      - name: Move files
+        #if: contains(env.isExtPR, 'false')
+        run: |
+          cp -r ./cosmo ./docs/dev
 
 
       - name: Deploy to Netlify
