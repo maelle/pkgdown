@@ -40,6 +40,31 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
     data$site$root <- paste0(pkg$meta$url, "/")
   }
 
+  # dependencies for head
+  bs_version <- get_bs_version(pkg)
+  bootswatch_theme <- pkg$meta[["template"]]$bootswatch %||% NULL
+  bs_theme <- bslib::bs_theme(
+    version = bs_version,
+    bootswatch = bootswatch_theme
+  )
+  deps <- bslib::bs_theme_dependencies(bs_theme)
+  deps <- lapply(
+    deps,
+    htmltools::copyDependencyToDir,
+    file.path(pkg$dst_path, "deps")
+    )
+
+  # Add other dependencies
+  deps <- c(
+    deps,
+    rmarkdown::html_dependency_font_awesome()
+  )
+
+  data$headdeps <- htmltools::renderDependencies(
+    deps,
+    hrefFilter = function(x) gsub(pkg$dst_path, "", x)
+  )
+
   # render template components
   pieces <- c("head", "navbar", "header", "content", "docsearch", "footer")
 
