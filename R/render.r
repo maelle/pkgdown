@@ -43,9 +43,10 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
   # dependencies for head
   bs_version <- get_bs_version(pkg)
   bootswatch_theme <- pkg$meta[["template"]]$bootswatch %||% NULL
-  bs_theme <- bslib::bs_theme(
-    version = bs_version,
-    bootswatch = bootswatch_theme
+  bs_theme <- do.call(
+    bslib::bs_theme,
+    c(list(version = bs_version,
+    bootswatch = bootswatch_theme), pkg$meta[["template"]]$bslib)
   )
   deps <- bslib::bs_theme_dependencies(bs_theme)
   # Add other dependencies
@@ -60,7 +61,7 @@ render_page <- function(pkg = ".", name, data, path = "", depth = NULL, quiet = 
     )
 
   transform_path <- function(x) {
-    browser()
+
     x <- gsub(pkg$dst_path, "", x)
 
     if (path == "index.html") {

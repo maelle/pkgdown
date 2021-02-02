@@ -13,6 +13,14 @@ authors:
 template:
   bootstrap: 3
   bootswatch: cosmo
+  bslib:
+    bg: "#202123"
+    fg: "#B8BCC2"
+    primary: "#EA80FC"
+    success: "#4F9B29"
+    info: "#28B3ED"
+    warning: "#FD7424"
+    danger: "#F7367E"
   params:
     docsearch:
       api_key: fbd8d79ed49f21fc9ca7b2cf601a3f5b
