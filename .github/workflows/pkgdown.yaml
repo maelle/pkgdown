@@ -68,7 +68,7 @@ jobs:
       - name: Move files
         #if: contains(env.isExtPR, 'false')
         run: |
-          cp -r ./cosmo ./docs/dev
+          cp -r ./cosmo/dev ./docs/dev/cosmo
 
 
       - name: Deploy to Netlify
