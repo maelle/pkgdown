@@ -199,6 +199,7 @@
 <a href="#pkgdown-development-version" class="anchor"></a>pkgdown (development version)<small> Unreleased </small>
 </h1>
 <ul>
+<li><p>Protect the rules drawn by the CLI (as for example, in <code><a href="../reference/build_site.html">build_site()</a></code>) against very narrow terminal windows with small <code><a href="https://rdrr.io/r/base/options.html">getOption('width')</a></code>s (<a href='https://github.com/maxheld83'>@maxheld83</a>, <a href='https://github.com/r-lib/pkgdown/issues/1435'>#1435</a>).</p></li>
 <li><p><a href="https://support.google.com/webmasters/answer/9008080?hl=en">Google Site Verification</a> can now be configured for pkgdown sites.</p></li>
 <li><p><code><a href="../reference/build_news.html">build_news()</a></code> recognises more styles of release heading (<a href='https://github.com/r-lib/pkgdown/issues/1437'>#1437</a>).</p></li>
 <li><p>Missing topics makes the build fail when the environment variable <code>CI</code> is set to <code>"true"</code> (<a href='https://github.com/ThierryO'>@ThierryO</a>, <a href='https://github.com/r-lib/pkgdown/issues/1378'>#1378</a>).</p></li>
@@ -604,7 +605,9 @@
 <li><p>The Algolia logo is correctly shown in the search results (<a href='https://github.com/r-lib/pkgdown/issues/673'>#673</a>).</p></li>
 <li>
 <p>Navbar active tab highlighting uses a superior approach (suggested by</p>
-<p>@jcheng5) which should mean that the active page is correctly highlighted in all scenarios (<a href='https://github.com/r-lib/pkgdown/issues/660'>#660</a>).</p>
+<ol class="example" style="list-style-type: decimal">
+<li>which should mean that the active page is correctly highlighted in all scenarios (<a href='https://github.com/r-lib/pkgdown/issues/660'>#660</a>).</li>
+</ol>
 </li>
 <li><p><code>pkgdown.js</code> is better isolated so it should still work even if you load html widgets that import a different version of jquery (<a href='https://github.com/r-lib/pkgdown/issues/655'>#655</a>).</p></li>
 </ul>
